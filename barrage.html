@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>弹幕demo</title>
+  <link rel="stylesheet" href="css/barrage.css">
+  <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="js/barrage.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <div class="container" style="height:300px"></div>
+  <button type="button" name="button1">开始弹幕</button>
+  <button type="button" name="button2">停止弹幕</button>
+</body>
+<script type="text/javascript">
+  $("[name='button1']").click(function(event) {
+    $(".container").Barrage('play', [{
+      msg: "love you Qien",
+      avatar: "http://ww2.sinaimg.cn/mw690/006sPURQjw1f3n5vxqrbyj308c08ct94.jpg",
+      status: 'danger'
+    }, {
+      msg: "love you Qien",
+      avatar: "http://ww2.sinaimg.cn/mw690/006sPURQjw1f3n5vxqrbyj308c08ct94.jpg",
+      status: 'warning'
+    }]);
+  });
+  $("[name='button2']").click(function(event) {
+    $(".container").Barrage('destroy');
+  });
+</script>
+
+</html>
