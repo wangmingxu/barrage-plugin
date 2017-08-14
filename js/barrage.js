@@ -19,8 +19,8 @@
         VERSION = "1.0.0",
         BARRAGE_KEY = 'barrage',
         DATA_KEY = 'mx-barrage',
-        CONTAINER_CLASS = 'mx-barrage-container';
-    JQUERY_NO_CONFLICT = $.fn[NAME];
+        CONTAINER_CLASS = 'mx-barrage-container',
+        JQUERY_NO_CONFLICT = $.fn[NAME];
 
     var Default = {
         template: '<div class="mx-barrage">' + '<img class="mx-barrage-avatar"/>' + '<div class="mx-barrage-msg"></div>' + '</div>',
