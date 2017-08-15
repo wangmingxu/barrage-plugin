@@ -23,7 +23,10 @@
         JQUERY_NO_CONFLICT = $.fn[NAME];
 
     var Default = {
-        template: '<div class="mx-barrage">' + '<img class="mx-barrage-avatar"/>' + '<div class="mx-barrage-msg"></div>' + '</div>',
+        template: '<div class="mx-barrage">' +
+                    '<img class="mx-barrage-avatar"/>' +
+                    '<div class="mx-barrage-msg"></div>' + 
+                  '</div>',
         liOffset: {
             top: 20,
             bottom: 20
