@@ -24,8 +24,8 @@
 
     var Default = {
         template: '<div class="mx-barrage">' +
-                    '<img class="mx-barrage-avatar"/>' +
-                    '<div class="mx-barrage-msg"></div>' +
+                  '<img class="mx-barrage-avatar"/>' +
+                  '<div class="mx-barrage-msg"></div>' +
                   '</div>',
         liOffset: {
             top: 20,
@@ -125,16 +125,17 @@
             return (lineHeight * lineNo + liOffset.top) + 'px';
         };
         Barrage.prototype._moveTip = function(tip) {
-            $(tip).animate({
-                'left': '-'+$(tip).width()+'px'
+            var _$tip = $(tip);
+            _$tip.animate({
+                'left': '-' + _$tip.width() + 'px'
             }, this._getMoveTime(), 'linear', function() {
-                $(tip).remove();
+                _$tip.remove();
             });
         };
         Barrage.prototype.destroy = function() {
-            $.each(this._timerList, $.proxy(function(index, timer) {
+            $.each(this._timerList, function(index, timer) {
                 clearInterval(timer);
-            }));
+            });
             this._$element.removeData(BARRAGE_KEY).removeClass(CONTAINER_CLASS);
             this._isPlayed = false;
             delete this;
