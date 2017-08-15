@@ -25,7 +25,7 @@
     var Default = {
         template: '<div class="mx-barrage">' +
                     '<img class="mx-barrage-avatar"/>' +
-                    '<div class="mx-barrage-msg"></div>' + 
+                    '<div class="mx-barrage-msg"></div>' +
                   '</div>',
         liOffset: {
             top: 20,
@@ -46,8 +46,8 @@
         status: 'danger',
         loopTimerMax: 1500,
         loopTimerMin: 1000,
-        runTimeMax: 4000,
-        runTimeMin: 3000
+        moveTimeMax: 4000,
+        moveTimeMin: 3000
     };
 
     var Barrage = (function($) {
@@ -96,7 +96,7 @@
                             _tm._$tip.addClass(this._config.statusClass[this._config.status]);
                         }
                         this._$element.append(_tm._$tip);
-                        this._runTip(_tm._$tip);
+                        this._moveTip(_tm._$tip);
                     }, this), this._getIntervalTime());
                     this._timerList.push(timer);
                 }, this)(i));
@@ -110,9 +110,9 @@
             var min = this._config.loopTimerMin;
             return this._getRandomNum(max, min);
         }
-        Barrage.prototype._getRunTime = function() {
-            var max = this._config.runTimeMax;
-            var min = this._config.runTimeMin;
+        Barrage.prototype._getMoveTime = function() {
+            var max = this._config.moveTimeMax;
+            var min = this._config.moveTimeMin;
             return this._getRandomNum(max, min);
         }
         Barrage.prototype._getRandomNum = function(max, min) {
@@ -124,10 +124,10 @@
             var lineHeight = (eleH - liOffset.top - liOffset.bottom) / this._config.totalLine;
             return (lineHeight * lineNo + liOffset.top) + 'px';
         };
-        Barrage.prototype._runTip = function(tip) {
+        Barrage.prototype._moveTip = function(tip) {
             $(tip).animate({
                 'left': '0px'
-            }, this._getRunTime(), 'linear', function() {
+            }, this._getMoveTime(), 'linear', function() {
                 $(tip).remove();
             });
         };
