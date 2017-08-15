@@ -54,7 +54,6 @@
             this._$element.data(BARRAGE_KEY, this);
             this._$element.addClass(CONTAINER_CLASS);
             this._isPlayed = false;
-            this._threadList = new Array(this._config.totalLine);
             this._timerList = [];
         };
         Barrage.prototype.play = function(args) {
@@ -70,33 +69,35 @@
             if (typeof config === "object") {
                 $.extend(this._config, config);
             }
-            $.each(this._threadList, $.proxy(function(index, thread) {
-                var timer = setInterval($.proxy(function() {
-                    // debugger
-                    var barrageData,
-                        _tm;
-                    if (barrageDataList.length < 1) {
-                        if (this._config.loop) {
-                            barrageDataList = barrageDataBackup.slice(0);
-                        } else {
-                            return false;
+            for (var i = 0; i < this._config.totalLine; i++) {
+                ($.proxy(function(i) {
+                    var timer = setInterval($.proxy(function() {
+                        // debugger
+                        var barrageData,
+                            _tm;
+                        if (barrageDataList.length < 1) {
+                            if (this._config.loop) {
+                                barrageDataList = barrageDataBackup.slice(0);
+                            } else {
+                                return false;
+                            }
                         }
-                    }
-                    barrageData = barrageDataList.shift();
-                    _tm = new TipManager(this._config.template);
-                    _tm.text(barrageData.msg);
-                    _tm.setAvatar(barrageData.avatar);
-                    _tm._$tip.css('top', this._calcLineTop(index)).css('left', this._$element.width());
-                    if (barrageData.status) {
-                        _tm._$tip.addClass(this._config.statusClass[barrageData.status]);
-                    } else {
-                        _tm._$tip.addClass(this._config.statusClass[this._config.status]);
-                    }
-                    this._$element.append(_tm._$tip);
-                    this._runTip(_tm._$tip, thread);
-                }, this), this._getIntervalTime());
-                this._timerList.push(timer);
-            }, this));
+                        barrageData = barrageDataList.shift();
+                        _tm = new TipManager(this._config.template);
+                        _tm.text(barrageData.msg);
+                        _tm.setAvatar(barrageData.avatar);
+                        _tm._$tip.css('top', this._calcLineTop(i)).css('left', this._$element.width());
+                        if (barrageData.status) {
+                            _tm._$tip.addClass(this._config.statusClass[barrageData.status]);
+                        } else {
+                            _tm._$tip.addClass(this._config.statusClass[this._config.status]);
+                        }
+                        this._$element.append(_tm._$tip);
+                        this._runTip(_tm._$tip);
+                    }, this), this._getIntervalTime());
+                    this._timerList.push(timer);
+                }, this)(i));
+            }
             this._isPlayed = true;
             return this;
 
