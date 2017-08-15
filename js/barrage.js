@@ -68,7 +68,7 @@
                 : [];
             var barrageDataBackup = barrageDataList.slice(0);
 
-            config = args[1];
+            var config = args[1];
             if (typeof config === "object") {
                 $.extend(this._config, config);
             }
