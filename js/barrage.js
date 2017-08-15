@@ -126,7 +126,7 @@
         };
         Barrage.prototype._moveTip = function(tip) {
             $(tip).animate({
-                'left': '0px'
+                'left': '-'+$(tip).width()+'px'
             }, this._getMoveTime(), 'linear', function() {
                 $(tip).remove();
             });
