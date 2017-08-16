@@ -5,8 +5,8 @@
 
 .mx-barrage {
   width: auto;
-  min-width: 200px;
   position: absolute;
+  white-space: nowrap;
 }
 
 .mx-barrage-avatar {
@@ -17,7 +17,7 @@
 }
 
 .mx-barrage-msg {
-  float: left;
+  overflow: hidden;
 }
 
 .mx-barrage-success {
