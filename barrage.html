@@ -14,10 +14,6 @@
   <div class="container" style="height:300px"></div>
   <button type="button" name="button1">开始弹幕</button>
   <button type="button" name="button2">停止弹幕</button>
-  <button type="button" name="button3">测试</button>
-  <div class="demo">
-
-  </div>
 </body>
 <script type="text/javascript">
   $("[name='button1']").click(function(event) {
@@ -33,10 +29,6 @@
   });
   $("[name='button2']").click(function(event) {
     $(".container").Barrage('destroy');
-  });
-  $("[name='button3']").click(function(event) {
-    $(".demo").velocity({'translateX':  100 + 'px'},0)
-    $(".demo").velocity({'translateX':  500 + 'px'},3000);
   });
 </script>
 
