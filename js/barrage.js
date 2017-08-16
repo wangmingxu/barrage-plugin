@@ -89,7 +89,14 @@
                         _tm = new TipManager(this._config.template);
                         _tm.text(barrageData.msg);
                         _tm.setAvatar(barrageData.avatar);
-                        _tm._$tip.css('top', this._calcLineTop(i)).css('left', this._$element.width());
+                        _tm._$tip.css('top', this._calcLineTop(i));
+                        if (this._supportCss3('transform')) {
+                            _tm._$tip.velocity({
+                                'translateX': this._$element.width() + 'px'
+                            }, 0)
+                        } else {
+                            _tm._$tip.css('left', this._$element.width())
+                        }
                         if (barrageData.status) {
                             _tm._$tip.addClass(this._config.statusClass[barrageData.status]);
                         } else {
@@ -118,6 +125,30 @@
         Barrage.prototype._getRandomNum = function(max, min) {
             return Math.floor(Math.random() * (max - min + 1) + min);
         }
+        Barrage.prototype._supportCss3 = function(style) {
+            var prefix = [
+                    'webkit', 'Moz', 'ms', 'o'
+                ],
+                i,
+                humpString = [],
+                htmlStyle = document.documentElement.style,
+                _toHumb = function(string) {
+                    return string.replace(/-(\w)/g, function($0, $1) {
+                        return $1.toUpperCase();
+                    });
+                };
+
+            for (i in prefix)
+                humpString.push(_toHumb(prefix[i] + '-' + style));
+
+            humpString.push(_toHumb(style));
+
+            for (i in humpString)
+                if (humpString[i] in htmlStyle)
+                    return true;
+
+            return false;
+        };
         Barrage.prototype._calcLineTop = function(lineNo) {
             var liOffset = this._config.liOffset;
             var eleH = this._$element.height();
@@ -126,11 +157,19 @@
         };
         Barrage.prototype._moveTip = function(tip) {
             var _$tip = $(tip);
-            _$tip.animate({
-                'left': '-' + _$tip.width() + 'px'
-            }, this._getMoveTime(), 'linear', function() {
-                _$tip.remove();
-            });
+            if (this._supportCss3('transform')) {
+                _$tip.velocity({
+                    'translateX': '-' + _$tip.width() + 'px'
+                }, this._getMoveTime(), 'linear', function() {
+                    _$tip.remove();
+                })
+            } else {
+                _$tip.animate({
+                    'left': '-' + _$tip.width() + 'px'
+                }, this._getMoveTime(), 'linear', function() {
+                    _$tip.remove();
+                });
+            }
         };
         Barrage.prototype.destroy = function() {
             $.each(this._timerList, function(index, timer) {

@@ -7,6 +7,7 @@
   width: auto;
   position: absolute;
   white-space: nowrap;
+  transform: translateZ(0px);
 }
 
 .mx-barrage-avatar {
